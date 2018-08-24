@@ -1,7 +1,6 @@
 package rentalstore;
 
 import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 
 public class CustomerTest {
@@ -23,14 +22,15 @@ public class CustomerTest {
 
         Customer customer=new Customer("howells");
         Movie movie=new Movie("Roman Holiday",1);
-        Rental rental=new Rental(movie,3);
+        Rental rental=new Rental(movie,1);
         customer.addRental(rental);
 
         String result=  customer.htmlStatement();
 
         assertEquals("<H1>Rentals for <EM>howells</EM></H1><P>\n" +
-                "Roman Holiday: 3.0<BR>\n" +
+                "\tRoman Holiday\t3.0<BR>\n" +
                 "<P>You owe<EM>3.0</EM><P>\n" +
                 "On this rental you earned <EM>1</EM> frequent renter points<P>",result);
+
     }
 }

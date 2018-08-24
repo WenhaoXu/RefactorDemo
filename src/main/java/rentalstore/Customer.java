@@ -72,7 +72,6 @@ public class Customer {
         while(rentals.hasMoreElements()){
             double thisAmount =0;
             Rental each = (Rental) rentals.nextElement();
-
             switch (each.getMovie().getPriceCode()){
                 case Movie.REGULAR:
                     thisAmount += 2;
@@ -99,13 +98,13 @@ public class Customer {
             }
 
             //show figures for this rental
-            result += "\t" + each.getMovie().getTitle() + "\t" + String.valueOf(thisAmount) + "\n";
+            result += "\t" + each.getMovie().getTitle() + "\t" + String.valueOf(thisAmount) + "<BR>\n";
             totalAmount += thisAmount;
         }
 
         //add footer lines
-        result += "Amount owed is" + String.valueOf(totalAmount) + "\n";
-        result += "You earned" + String.valueOf(frequentRenterPoints) + " frequent renter points";
+        result += "<P>You owe<EM>" + String.valueOf(totalAmount) + "</EM><P>\n";
+        result += "On this rental you earned <EM>" + String.valueOf(frequentRenterPoints) + "</EM> frequent renter points<P>";
         return result;
     }
 }
