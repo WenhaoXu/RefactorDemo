@@ -18,4 +18,25 @@ public abstract class  Statement {
 
     protected abstract String getHeaderResult(Customer customer);
 
+    protected  double getEachAmount(double thisAmount, Rental each){
+        if (each.getMovie().getPriceCode() == Movie.REGULAR) {
+            thisAmount += 2;
+            if (each.getDayRented() > 2) {
+                thisAmount += (each.getDayRented() - 2) * 1.5;
+            }
+            return thisAmount;
+        }
+        if (each.getMovie().getPriceCode() == Movie.NEW_RELEASE) {
+            thisAmount += each.getDayRented() * 3;
+            return thisAmount;
+        }
+        if (each.getMovie().getPriceCode() == Movie.CHILDRENS) {
+            thisAmount += 1.5;
+            if (each.getDayRented() > 3) {
+                thisAmount += (each.getDayRented() - 3) * 1.5;
+            }
+            return thisAmount;
+        }
+        return thisAmount;
+    };
 }
