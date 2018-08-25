@@ -2,12 +2,8 @@ package rentalstore;
 
 import java.util.Enumeration;
 
-public class HtmlStatement {
-    public String statement(Customer customer) {
-        double totalAmount = 0;
-        int frequentRenterPoints = 0;
-        Enumeration rentals = customer.getRentals().elements();
-        String result = "<H1>Rentals for <EM>" + customer.getName() + "</EM></H1><P>\n";
+public class HtmlStatement extends  Statement{
+    protected String getEachItem(Enumeration rentals, String result) {
         while(rentals.hasMoreElements()){
             double thisAmount =0;
             Rental each = (Rental) rentals.nextElement();
@@ -28,22 +24,20 @@ public class HtmlStatement {
                     }
                     break;
             }
-
-            //add frequent renter points
             frequentRenterPoints ++;
-            //add bonus for a two day new release rental
             if((each.getMovie().getPriceCode() == Movie.NEW_RELEASE) && each.getDayRented() > 1){
                 frequentRenterPoints ++;
             }
-
-            //show figures for this rental
             result += "\t" + each.getMovie().getTitle() + "\t" + String.valueOf(thisAmount) + "<BR>\n";
             totalAmount += thisAmount;
         }
-
-        //add footer lines
-        result += "<P>You owe<EM>" + String.valueOf(totalAmount) + "</EM><P>\n";
-        result += "On this rental you earned <EM>" + String.valueOf(frequentRenterPoints) + "</EM> frequent renter points<P>";
         return result;
+    }
+    protected String getFooterResult(double totalAmount, int frequentRenterPoints) {
+        return "<P>You owe<EM>" + String.valueOf(totalAmount) + "</EM><P>\n"+"On this rental you earned <EM>" + String.valueOf(frequentRenterPoints) + "</EM> frequent renter points<P>";
+    }
+
+    protected String getHeaderResult(Customer customer) {
+        return "<H1>Rentals for <EM>" + customer.getName() + "</EM></H1><P>\n";
     }
 }
